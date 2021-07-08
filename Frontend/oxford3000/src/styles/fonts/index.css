@@ -1,0 +1,21 @@
+@font-face {
+    font-family: Mali;
+    src: url("./Mali-Medium.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Mali;
+    src: url("./Mali-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Mali;
+    src: url("./Mali-Bold.ttf") format("truetype");
+    font-weight: 700;
+}
+
+body {
+    font-family: "Mali", cursive;
+}
