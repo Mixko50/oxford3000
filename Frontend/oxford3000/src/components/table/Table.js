@@ -11,16 +11,14 @@ export default function VocabTable({ words }) {
     const [page, setPage] = React.useState(0);
     const pagination = useRef(null);
 
-    const pageCaller = async () => {
-        let page = await pagination.current.getPage();
-        return page;
-    };
-
     return (
         <Box>
             <Box>
                 {words
-                    .slice(pageCaller() * 100, pageCaller() * 100 + 100)
+                    .slice(
+                        pagination.current?.getPage() * 100,
+                        pagination.current?.getPage() * 100 + 100
+                    )
                     .map((word) => {
                         return (
                             <Box className={classes.table}>

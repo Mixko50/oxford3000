@@ -1,6 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import VocabTable from "../components/Table";
+import VocabTable from "../components/table/Table";
 import axios from "../utils/axios";
 
 const Home = () => {
