@@ -6,7 +6,7 @@ import { forwardRef, useState, useImperativeHandle } from "react";
 
 const Pagination = forwardRef((props, ref) => {
     const classes = useStyles();
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
 
     useImperativeHandle(ref, () => ({
         getPage: () => {
@@ -21,7 +21,7 @@ const Pagination = forwardRef((props, ref) => {
                     <Fab
                         color="primary"
                         onClick={() => {
-                            page === 0 ? setPage(page) : setPage(page - 1);
+                            page === 1 ? setPage(33) : setPage(page - 1);
                         }}
                     >
                         <FontAwesomeIcon icon={faLessThan} />
@@ -30,7 +30,7 @@ const Pagination = forwardRef((props, ref) => {
                     <Fab
                         color="primary"
                         onClick={() => {
-                            page === 32 ? setPage(page) : setPage(page + 1);
+                            page === 33 ? setPage(1) : setPage(page + 1);
                         }}
                     >
                         <FontAwesomeIcon icon={faGreaterThan} />

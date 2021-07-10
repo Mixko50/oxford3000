@@ -26,7 +26,7 @@ const Home = () => {
             flexDirection="column"
             width="100%"
             alignItems="center"
-            height="2000px"
+            height="auto"
         >
             <Box marginTop="50px">
                 <Typography variant="h2" color="textPrimary">

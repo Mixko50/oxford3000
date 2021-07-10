@@ -16,8 +16,8 @@ export default function VocabTable({ words }) {
             <Box>
                 {words
                     .slice(
-                        pagination.current?.getPage() * 100,
-                        pagination.current?.getPage() * 100 + 100
+                        (pagination.current?.getPage() - 1) * 100,
+                        (pagination.current?.getPage() - 1) * 100 + 100
                     )
                     .map((word) => {
                         return (
