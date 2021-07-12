@@ -46,7 +46,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "10px",
         width: "100%",
         height: "80px",
-        backgroundColor: theme.palette.customColors.background4,
+        backgroundColor:
+            theme.palette.type === "dark"
+                ? theme.palette.customColors.darkModePagination
+                : theme.palette.customColors.background4,
         borderRadius: theme.shape.borderRadius,
         padding: "10px",
         display: "flex",

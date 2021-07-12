@@ -18,6 +18,7 @@ export const ThemeContextProvider = ({ children }) => {
                 button: "#F38BA0",
                 hoverButton: "#BB8760",
                 darkMode: "#4C4C6D",
+                darkModePagination: "#515E63",
             },
         },
         typography: {

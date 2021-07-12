@@ -1,14 +1,13 @@
 import React, { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Fab, Typography } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faStar, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "./Pagination";
 
 export default function VocabTable({ words }) {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
     const pagination = useRef(null);
 
     return (
@@ -23,20 +22,38 @@ export default function VocabTable({ words }) {
                         return (
                             <Box className={classes.table}>
                                 <Box className={classes.vocabBox}>
+                                    <Fab
+                                        color="primary"
+                                        style={{ marginRight: "15px" }}
+                                    >
+                                        <FontAwesomeIcon icon={faVolumeUp} />
+                                    </Fab>
                                     <Typography variant="h4">{word}</Typography>
                                 </Box>
                                 <Typography variant="h4">TEST</Typography>
-                                <Button variant="contained" color="primary">
-                                    <FontAwesomeIcon
-                                        icon={faStar}
-                                        style={{ marginRight: "10px" }}
-                                    />
-                                    Favorite
-                                </Button>
+                                <Box className={classes.buttonBox}>
+                                    <Button variant="contained" color="primary">
+                                        <FontAwesomeIcon
+                                            icon={faStar}
+                                            style={{ marginRight: "10px" }}
+                                        />
+                                        Favorite
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faCheck}
+                                            style={{ marginRight: "10px" }}
+                                        />
+                                        Remember
+                                    </Button>
+                                </Box>
                             </Box>
                         );
                     })}
-                <Pagination page={page} ref={pagination} />
+                <Pagination ref={pagination} />
             </Box>
         </Box>
     );
@@ -51,12 +68,19 @@ const useStyles = makeStyles((theme) => ({
     },
     table: {
         display: "flex",
-        minWidth: "900px",
+        minWidth: "1000px",
         justifyContent: "space-between",
         borderBottom: `1px solid ${theme.palette.text.primary}`,
         padding: "15px 0 15px 0",
     },
     vocabBox: {
         width: "280px",
+        display: "flex",
+        alignItems: "center",
+    },
+    buttonBox: {
+        display: "flex",
+        justifyContent: "space-between",
+        width: "270px",
     },
 }));
