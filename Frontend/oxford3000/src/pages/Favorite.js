@@ -1,6 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 
-const Random = () => {
+const Favorite = () => {
     return (
         <Box
             display="flex"
@@ -12,11 +12,11 @@ const Random = () => {
         >
             <Box marginTop="50px">
                 <Typography variant="h2" color="textPrimary">
-                    Random 5 words
+                    Favortie
                 </Typography>
             </Box>
         </Box>
     );
 };
 
-export default Random;
+export default Favorite;

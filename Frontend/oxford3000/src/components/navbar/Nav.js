@@ -62,8 +62,16 @@ const Nav = () => {
                         icon={faRandom}
                         to="/random"
                     />
-                    <NavbarButton text={t("history")} icon={faHistory} />
-                    <NavbarButton text={t("favorite")} icon={faStar} />
+                    <NavbarButton
+                        text={t("history")}
+                        icon={faHistory}
+                        to="/history"
+                    />
+                    <NavbarButton
+                        text={t("favorite")}
+                        icon={faStar}
+                        to="/favorite"
+                    />
                 </Box>
                 <Box>
                     <Tooltip title="Switch to Dark mode">
