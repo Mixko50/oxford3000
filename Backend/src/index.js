@@ -5,6 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 require("./routes/google-redirect")(app);
+require("./routes/google-auth")(app);
 
 app.post("/test", (req, res) => {
     res.send({
