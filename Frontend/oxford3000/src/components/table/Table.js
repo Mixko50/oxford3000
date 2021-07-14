@@ -28,7 +28,11 @@ export default function VocabTable({ words }) {
                                     >
                                         <FontAwesomeIcon icon={faVolumeUp} />
                                     </Fab>
-                                    <Typography variant="h4">{word}</Typography>
+                                    <Box className={classes.wordBox}>
+                                        <Typography variant="h4">
+                                            {word}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                                 <Typography variant="h4">TEST</Typography>
                                 <Box className={classes.buttonBox}>
@@ -82,5 +86,8 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-between",
         width: "270px",
+    },
+    wordBox: {
+        width: "200px",
     },
 }));
