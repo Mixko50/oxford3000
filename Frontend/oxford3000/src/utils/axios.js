@@ -7,10 +7,12 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 }
 
 const instance = axios.create({
-    baseURL: isDev
-        ? "https://oxford3000api.mixko.ml"
-        : "https://oxford3000api.mixko.ml",
+    baseURL: isDev ? "http://localhost:8080" : "https://oxford3000api.mixko.ml",
     withCredentials: true,
 });
+
+instance.baseURL = isDev
+    ? "http://localhost:8080"
+    : "https://oxford3000api.mixko.ml";
 
 export default instance;

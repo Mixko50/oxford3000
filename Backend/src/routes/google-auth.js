@@ -1,10 +1,13 @@
 const { default: axios } = require("axios");
 const QueryString = require("qs");
+const jwt = require("jsonwebtoken");
+const { dev } = require("../utils/enviroment");
 const {
     get_token_uri,
     google_client_id,
     google_client_secret,
     redirect_uri,
+    jwt_secret,
 } = require("../utils/config");
 
 module.exports = (app) => {
@@ -40,6 +43,24 @@ module.exports = (app) => {
             .then((res) => res.data)
             .catch((e) => console.log("Error in getGoogleUser function"));
 
-        res.send(getGoogleUser);
+        const token = jwt.sign(
+            {
+                email: getGoogleUser.email,
+                name: getGoogleUser.name,
+                pic: getGoogleUser.picture,
+            },
+            jwt_secret
+        );
+
+        res.cookie("token", token, {
+            domain: dev ? "localhost" : "oxford3000.mixko.ml",
+            path: "/",
+        });
+
+        res.redirect(
+            dev
+                ? "http://localhost:3000/home"
+                : "https://oxford3000.mixko.ml/home"
+        );
     });
 };

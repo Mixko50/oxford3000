@@ -2,23 +2,22 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
 app.use(bodyParser.json());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST", "UPDATE", "PUT"],
+        credentials: true,
+    })
+);
+app.use(cookieParser());
 
 require("./routes/google-redirect")(app);
 require("./routes/google-auth")(app);
-
-app.post("/test", (req, res) => {
-    res.send({
-        test: req.body.e + 70 / 2,
-        Mixko: 656564,
-    });
-});
-
-app.get("/hello", (req, res) => {
-    res.send({
-        rt: "wewe",
-    });
-});
+require("./routes/google-profile")(app);
 
 app.listen(8080, () => {
     console.log("Hello");

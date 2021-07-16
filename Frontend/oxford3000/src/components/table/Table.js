@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Fab, Typography } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -8,16 +8,13 @@ import Pagination from "./Pagination";
 
 export default function VocabTable({ words }) {
     const classes = useStyles();
-    const pagination = useRef(null);
+    const [page, setPage] = useState(1);
 
     return (
         <Box>
             <Box>
                 {words
-                    .slice(
-                        (pagination.current?.getPage() - 1) * 100,
-                        (pagination.current?.getPage() - 1) * 100 + 100
-                    )
+                    .slice((page - 1) * 100, (page - 1) * 100 + 100)
                     .map((word) => {
                         return (
                             <Box className={classes.table}>
@@ -57,7 +54,7 @@ export default function VocabTable({ words }) {
                             </Box>
                         );
                     })}
-                <Pagination ref={pagination} />
+                <Pagination page={page} setPage={setPage} />
             </Box>
         </Box>
     );

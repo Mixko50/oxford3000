@@ -18,11 +18,14 @@ import {
     faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import axios from "../../utils/axios";
 
 const Nav = () => {
     const { toggleDark } = useContext(ThemeContext);
     const [scrolled, setScrolled] = useState(false);
     const [t, i18n] = useTranslation("home");
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [profile, setProfile] = useState({});
     const classes = useStyles({
         height: 60,
         scrolled: scrolled,
@@ -37,6 +40,21 @@ const Nav = () => {
             window.removeEventListener("scroll", onScroll);
         };
     });
+
+    useEffect(() => {
+        checkLogin();
+    }, []);
+
+    const checkLogin = async () => {
+        try {
+            const fetchedData = await axios.get("/google/profile");
+            console.log(fetchedData.data);
+            setProfile(fetchedData.data);
+            setLoggedIn(true);
+        } catch {
+            console.log("Error to fetch profile");
+        }
+    };
 
     const onScroll = () => {
         if (window.pageYOffset > 60) {
@@ -73,7 +91,7 @@ const Nav = () => {
                         to="/favorite"
                     />
                 </Box>
-                <Box>
+                <Box className={classes.profileBox}>
                     <Tooltip title="Switch to Dark mode">
                         <Switch
                             onChange={() => {
@@ -82,9 +100,32 @@ const Nav = () => {
                             inputProps={{ "aria-label": "secondary checkbox" }}
                         />
                     </Tooltip>
-                    <StyledButton variant="contained">
-                        <Typography color="textPrimary">Login</Typography>
-                    </StyledButton>
+                    {loggedIn ? (
+                        <Tooltip title={profile.name}>
+                            <Box className={classes.profile}>
+                                <img
+                                    className={classes.profilePic}
+                                    src={profile.picture}
+                                    alt="profile picture"
+                                ></img>
+
+                                <Typography variant="h6">
+                                    {profile.name.split(" ")[0]}
+                                </Typography>
+                            </Box>
+                        </Tooltip>
+                    ) : (
+                        <a
+                            href={axios.baseURL + "/oauth/redirect"}
+                            style={{ textDecoration: "none" }}
+                        >
+                            <StyledButton variant="contained">
+                                <Typography color="textPrimary">
+                                    Login
+                                </Typography>
+                            </StyledButton>
+                        </a>
+                    )}
                 </Box>
             </Box>
         </Box>
@@ -118,6 +159,21 @@ const useStyles = makeStyles((theme) => ({
         width: 35,
         marginRight: theme.spacing(3),
     }),
+    profilePic: {
+        width: 35,
+        margin: "0 10px",
+        borderRadius: "30px",
+    },
+    profile: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    profileBox: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
 }));
 
 const StyledButton = withStyles((theme) => ({

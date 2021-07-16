@@ -2,17 +2,9 @@ import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
-import { forwardRef, useState, useImperativeHandle } from "react";
 
-const Pagination = forwardRef((props, ref) => {
+const Pagination = ({ page, setPage }) => {
     const classes = useStyles();
-    const [page, setPage] = useState(1);
-
-    useImperativeHandle(ref, () => ({
-        getPage: () => {
-            return page;
-        },
-    }));
 
     return (
         <Box className={classes.pagination}>
@@ -39,7 +31,7 @@ const Pagination = forwardRef((props, ref) => {
             </Box>
         </Box>
     );
-});
+};
 
 const useStyles = makeStyles((theme) => ({
     pagination: {
