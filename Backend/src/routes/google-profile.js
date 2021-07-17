@@ -5,7 +5,6 @@ module.exports = (app) => {
     app.get("/google/profile", (req, res) => {
         try {
             const profile = jwt.verify(req.cookies.token, jwt_secret);
-            console.log(profile);
 
             res.send({
                 name: profile.name,

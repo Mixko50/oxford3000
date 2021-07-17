@@ -5,6 +5,7 @@ import {
     Button,
     Tooltip,
     Switch,
+    Fab,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import React, { useContext, useEffect, useState } from "react";
@@ -15,10 +16,12 @@ import {
     faHistory,
     faIgloo,
     faRandom,
+    faSignOutAlt,
     faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import axios from "../../utils/axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Nav = () => {
     const { toggleDark } = useContext(ThemeContext);
@@ -64,6 +67,13 @@ const Nav = () => {
         }
     };
 
+    const Logout = async () => {
+        const logout = await axios.get("/logout");
+        if (logout.data) {
+            window.location.reload();
+        }
+    };
+
     return (
         <Box className={classes.outer}>
             <Box className={classes.inner}>
@@ -101,19 +111,33 @@ const Nav = () => {
                         />
                     </Tooltip>
                     {loggedIn ? (
-                        <Tooltip title={profile.name}>
-                            <Box className={classes.profile}>
-                                <img
-                                    className={classes.profilePic}
-                                    src={profile.picture}
-                                    alt="profile picture"
-                                ></img>
-
-                                <Typography variant="h6">
-                                    {profile.name.split(" ")[0]}
-                                </Typography>
-                            </Box>
-                        </Tooltip>
+                        <Box className={classes.profile}>
+                            <Tooltip title={profile.name}>
+                                <Box className={classes.profile}>
+                                    <img
+                                        className={classes.profilePic}
+                                        src={profile.picture}
+                                        alt="profile picture"
+                                    ></img>
+                                    <Typography variant="h6">
+                                        {profile.name.split(" ")[0]}
+                                    </Typography>
+                                </Box>
+                            </Tooltip>
+                            <Tooltip title="Logout">
+                                <Fab
+                                    color="secondary"
+                                    size="small"
+                                    style={{ marginLeft: "10px" }}
+                                    onClick={Logout}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faSignOutAlt}
+                                        size="1x"
+                                    />
+                                </Fab>
+                            </Tooltip>
+                        </Box>
                     ) : (
                         <a
                             href={axios.baseURL + "/oauth/redirect"}

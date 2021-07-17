@@ -18,6 +18,7 @@ app.use(cookieParser());
 require("./routes/google-redirect")(app);
 require("./routes/google-auth")(app);
 require("./routes/google-profile")(app);
+require("./routes/logout")(app);
 
 app.listen(8080, () => {
     console.log("Hello");
