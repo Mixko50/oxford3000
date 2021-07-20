@@ -6,4 +6,6 @@ module.exports = {
         "198546295289-ci6a3j9rmdcre8gmi12tbn4sarph4jjc.apps.googleusercontent.com",
     auth_uri: "https://accounts.google.com/o/oauth2/auth",
     get_token_uri: "https://oauth2.googleapis.com/token",
+    db_connection:
+        "mongodb://root:mixko50nibuko@mixkoserver.mixko.ml:27017/oxford3000",
 };

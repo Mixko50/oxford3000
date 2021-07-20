@@ -8,7 +8,7 @@ module.exports = (app) => {
 
             res.send({
                 name: profile.name,
-                picture: profile.pic,
+                picture: profile.picture,
             });
         } catch {
             console.log("Error to get profile");

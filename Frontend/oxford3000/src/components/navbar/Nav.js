@@ -68,10 +68,7 @@ const Nav = () => {
     };
 
     const Logout = async () => {
-        const logout = await axios.get("/logout");
-        if (logout.data) {
-            window.location.reload();
-        }
+        await axios.get("/logout");
     };
 
     return (

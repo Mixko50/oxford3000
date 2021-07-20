@@ -9,6 +9,7 @@ const {
     redirect_uri,
     jwt_secret,
 } = require("../utils/config");
+const Users = require("../models/Users");
 
 module.exports = (app) => {
     app.get("/google/auth", async (req, res) => {
@@ -43,19 +44,45 @@ module.exports = (app) => {
             .then((res) => res.data)
             .catch((e) => console.log("Error in getGoogleUser function"));
 
-        const token = jwt.sign(
-            {
-                email: getGoogleUser.email,
-                name: getGoogleUser.name,
-                pic: getGoogleUser.picture,
-            },
-            jwt_secret
-        );
+        const users = await Users.findOne({ email: getGoogleUser.email });
 
-        res.cookie("token", token, {
-            domain: dev ? "localhost" : "oxford3000.mixko.ml",
-            path: "/",
-        });
+        if (users) {
+            const token = jwt.sign(
+                {
+                    email: users.email,
+                    name: users.name,
+                    picture: users.picture,
+                },
+                jwt_secret
+            );
+            res.cookie("token", token, {
+                domain: dev ? "localhost" : "oxford3000.mixko.ml",
+                path: "/",
+            });
+        } else {
+            const users = new Users({
+                name: getGoogleUser.name,
+                email: getGoogleUser.email,
+                picture: getGoogleUser.picture,
+            });
+            try {
+                const saved = await users.save();
+                const token = jwt.sign(
+                    {
+                        email: getGoogleUser.email,
+                        name: getGoogleUser.name,
+                        picture: getGoogleUser.picture,
+                    },
+                    jwt_secret
+                );
+                res.cookie("token", token, {
+                    domain: dev ? "localhost" : "oxford3000.mixko.ml",
+                    path: "/",
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
 
         res.redirect(
             dev
