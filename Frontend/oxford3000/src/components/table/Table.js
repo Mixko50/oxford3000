@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Fab, Typography } from "@material-ui/core";
+import { Button, CircularProgress, Fab, Typography } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ export default function VocabTable({ words }) {
                     .slice((page - 1) * 100, (page - 1) * 100 + 100)
                     .map((word) => {
                         return (
-                            <Box className={classes.table}>
+                            <Box className={classes.row}>
                                 <Box className={classes.vocabBox}>
                                     <Fab
                                         color="primary"
@@ -31,7 +31,9 @@ export default function VocabTable({ words }) {
                                         </Typography>
                                     </Box>
                                 </Box>
-                                <Typography variant="h4">TEST</Typography>
+                                <Box className={classes.transBox}>
+                                    <Typography variant="h4">TEST</Typography>
+                                </Box>
                                 <Box className={classes.buttonBox}>
                                     <Button variant="contained" color="primary">
                                         <FontAwesomeIcon
@@ -54,7 +56,7 @@ export default function VocabTable({ words }) {
                             </Box>
                         );
                     })}
-                <Pagination page={page} setPage={setPage} />
+                {words[0] ? <Pagination page={page} setPage={setPage} /> : null}
             </Box>
         </Box>
     );
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     container: {
         maxHeight: 440,
     },
-    table: {
+    row: {
         display: "flex",
         minWidth: "1000px",
         justifyContent: "space-between",
@@ -75,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
         padding: "15px 0 15px 0",
     },
     vocabBox: {
-        width: "280px",
+        width: "320px",
         display: "flex",
         alignItems: "center",
     },
@@ -85,6 +87,12 @@ const useStyles = makeStyles((theme) => ({
         width: "270px",
     },
     wordBox: {
-        width: "200px",
+        width: "250px",
+    },
+    transBox: {
+        width: "150px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
 }));
