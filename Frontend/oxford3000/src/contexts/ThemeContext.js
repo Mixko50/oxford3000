@@ -1,11 +1,21 @@
 import { CssBaseline } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { createContext, useState } from "react";
+import axios from "../utils/axios";
+import { createContext, useState, useEffect } from "react";
 
 export const ThemeContext = createContext();
 
 export const ThemeContextProvider = ({ children }) => {
-    const [dark, setDark] = useState(false);
+    const [dark, setDark] = useState();
+
+    useEffect(() => {
+        checkTheme();
+    }, [dark]);
+
+    const checkTheme = async () => {
+        const getTheme = await axios.get("/theme/check");
+        setDark(getTheme.data.theme);
+    };
 
     const theme = createMuiTheme({
         palette: {
@@ -39,8 +49,15 @@ export const ThemeContextProvider = ({ children }) => {
     });
 
     const handlers = {
-        toggleDark: () => {
+        toggleDark: async () => {
             setDark((dark) => !dark);
+            try {
+                await axios.post(axios.baseURL + "/theme/change", {
+                    theme: !dark,
+                });
+            } catch (e) {
+                console.log("Error while changing theme in database");
+            }
         },
         isDark: dark,
     };

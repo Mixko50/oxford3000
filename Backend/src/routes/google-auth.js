@@ -49,6 +49,7 @@ module.exports = (app) => {
         if (users) {
             const token = jwt.sign(
                 {
+                    id: users._id,
                     email: users.email,
                     name: users.name,
                     picture: users.picture,
@@ -56,6 +57,10 @@ module.exports = (app) => {
                 jwt_secret
             );
             res.cookie("token", token, {
+                domain: dev ? "localhost" : "oxford3000.mixko.ml",
+                path: "/",
+            });
+            res.cookie("theme", users.theme, {
                 domain: dev ? "localhost" : "oxford3000.mixko.ml",
                 path: "/",
             });
@@ -69,6 +74,7 @@ module.exports = (app) => {
                 const saved = await users.save();
                 const token = jwt.sign(
                     {
+                        id: saved._id,
                         email: getGoogleUser.email,
                         name: getGoogleUser.name,
                         picture: getGoogleUser.picture,
@@ -76,6 +82,10 @@ module.exports = (app) => {
                     jwt_secret
                 );
                 res.cookie("token", token, {
+                    domain: dev ? "localhost" : "oxford3000.mixko.ml",
+                    path: "/",
+                });
+                res.cookie("theme", saved.theme, {
                     domain: dev ? "localhost" : "oxford3000.mixko.ml",
                     path: "/",
                 });

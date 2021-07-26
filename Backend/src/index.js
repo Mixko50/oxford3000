@@ -21,6 +21,8 @@ require("./routes/google-redirect")(app);
 require("./routes/google-auth")(app);
 require("./routes/google-profile")(app);
 require("./routes/logout")(app);
+require("./routes/change-theme")(app);
+require("./routes/check-theme")(app);
 
 mongoose.connect(
     db_connection,

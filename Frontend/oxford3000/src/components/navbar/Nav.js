@@ -13,6 +13,7 @@ import logo from "../../images/pin.png";
 import NavbarButton from "./NavbarButton";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import {
+    faAdjust,
     faHistory,
     faIgloo,
     faRandom,
@@ -51,7 +52,6 @@ const Nav = () => {
     const checkLogin = async () => {
         try {
             const fetchedData = await axios.get("/google/profile");
-            console.log(fetchedData.data);
             setProfile(fetchedData.data);
             setLoggedIn(true);
         } catch {
@@ -65,10 +65,6 @@ const Nav = () => {
         } else {
             setScrolled(false);
         }
-    };
-
-    const Logout = async () => {
-        await axios.get("/logout");
     };
 
     return (
@@ -100,12 +96,16 @@ const Nav = () => {
                 </Box>
                 <Box className={classes.profileBox}>
                     <Tooltip title="Switch to Dark mode">
-                        <Switch
-                            onChange={() => {
+                        <Fab
+                            onClick={() => {
                                 toggleDark();
                             }}
-                            inputProps={{ "aria-label": "secondary checkbox" }}
-                        />
+                            color="primary"
+                            size="small"
+                            style={{ marginRight: "15px" }}
+                        >
+                            <FontAwesomeIcon icon={faAdjust} />
+                        </Fab>
                     </Tooltip>
                     {loggedIn ? (
                         <Box className={classes.profile}>
@@ -121,19 +121,23 @@ const Nav = () => {
                                     </Typography>
                                 </Box>
                             </Tooltip>
-                            <Tooltip title="Logout">
-                                <Fab
-                                    color="secondary"
-                                    size="small"
-                                    style={{ marginLeft: "10px" }}
-                                    onClick={Logout}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faSignOutAlt}
-                                        size="1x"
-                                    />
-                                </Fab>
-                            </Tooltip>
+                            <a
+                                href={axios.baseURL + "/logout"}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <Tooltip title="Logout">
+                                    <Fab
+                                        color="secondary"
+                                        size="small"
+                                        style={{ marginLeft: "15px" }}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faSignOutAlt}
+                                            size="1x"
+                                        />
+                                    </Fab>
+                                </Tooltip>
+                            </a>
                         </Box>
                     ) : (
                         <a

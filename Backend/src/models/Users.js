@@ -13,9 +13,13 @@ const Users = mongoose.Schema({
         type: String,
         required: true,
     },
-    createdDate: {
+    created_date: {
         type: Date,
         default: Date.now,
+    },
+    theme: {
+        type: Boolean,
+        default: false,
     },
 });
 

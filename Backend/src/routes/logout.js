@@ -1,10 +1,10 @@
-const { jwt_secret } = require("../utils/config");
 const { dev } = require("../utils/enviroment");
 
 module.exports = (app) => {
     app.get("/logout", (req, res) => {
         try {
             res.clearCookie("token", { domain: "localhost", path: "/" });
+            res.clearCookie("theme", { domain: "localhost", path: "/" });
             res.redirect(
                 dev
                     ? "http://localhost:3000/home"
