@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+Frontend/oxford3000/.idea/inspectionProfiles/Project_Default.xml
+Frontend/oxford3000/.idea/modules.xml
+Frontend/oxford3000/.idea/vcs.xml
+Frontend/oxford3000/.idea/oxford3000.iml
