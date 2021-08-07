@@ -1,13 +1,6 @@
 import { faCheck, faStar, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    Box,
-    Typography,
-    makeStyles,
-    Button,
-    Fab,
-    CircularProgress,
-} from "@material-ui/core";
+import { Box, Typography, makeStyles, Button, Fab } from "@material-ui/core";
 import axios from "axios";
 import { useState, useEffect } from "react";
 

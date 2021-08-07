@@ -4,7 +4,6 @@ import {
     Typography,
     Button,
     Tooltip,
-    Switch,
     Fab,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
@@ -27,7 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Nav = () => {
     const { toggleDark } = useContext(ThemeContext);
     const [scrolled, setScrolled] = useState(false);
-    const [t, i18n] = useTranslation("home");
+    const [t] = useTranslation("home");
     const [loggedIn, setLoggedIn] = useState(false);
     const [profile, setProfile] = useState({});
     const classes = useStyles({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, CircularProgress, Fab, Typography } from "@material-ui/core";
+import { Button, Fab, Typography } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faStar, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
