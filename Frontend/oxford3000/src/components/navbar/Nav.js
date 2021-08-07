@@ -110,11 +110,11 @@ const Nav = () => {
                         <Box className={classes.profile}>
                             <Tooltip title={profile.name}>
                                 <Box className={classes.profile}>
-                                    <img
+                                    <image
                                         className={classes.profilePic}
                                         src={profile.picture}
                                         alt="profile picture"
-                                    ></img>
+                                    />
                                     <Typography variant="h6">
                                         {profile.name.split(" ")[0]}
                                     </Typography>
