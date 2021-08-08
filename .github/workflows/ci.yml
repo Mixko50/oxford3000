@@ -26,12 +26,32 @@ jobs:
                   name: react-build-artifact
                   path: ./Frontend/oxford3000/build
 
+    backend-build:
+        name: Build Backend
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        container: node:lts
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Compile Backend production build
+              run: |
+                  cd ./Backend/
+                  npm i
+                  npm run build
+            - name: Upload artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: backend-build-artifact
+                  path: ./Backend/dist/oxford3000-webpack.js
+
     deploy:
         name: Deploy To Preview Server
         runs-on: ubuntu-latest
         timeout-minutes: 2
         container: alpine
-        needs: [react-build]
+        needs: [react-build, backend-build]
         env:
             REMOTE_SFTP_LOGIN: ${{ secrets.REMOTE_SFTP_LOGIN }}
         steps:
@@ -43,6 +63,11 @@ jobs:
             - name: Install packages
               run: |
                   apk add openssh-client sshpass lftp
+
             - name: Upload artifacts to server
               run: |
-                  lftp -e "set sftp:auto-confirm yes; open $REMOTE_SFTP_LOGIN; mirror -X .* -X .*/ --reverse --delete ./react-build-artifact /mnt; bye"
+                  lftp -e " ; open $REMOTE_SFTP_LOGIN; mirror -X .* -X .*/ --reverse --delete ./react-build-artifact /mnt; mput -e -O /mnt/backend ./backend-build-artifact; bye"
+
+            - name: Restart Node runtime at server
+              run: |
+                  sshpass -p $REMOTE_SSH_PASSWORD ssh $REMOTE_SSH_ARGS -o StrictHostKeyChecking=no "(kill -9 \$(cat /mnt/backend/oxford3000.pid) || true) && while kill -0 \$(cat /mnt/backend/oxford3000.pid); do sleep 1; done && nohup /mnt/backend/start.sh > /dev/null"
