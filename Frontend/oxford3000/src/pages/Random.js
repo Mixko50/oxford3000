@@ -24,7 +24,7 @@ const Random = () => {
     const fetchWords = async () => {
         try {
             const fetchedData = await axios.get(
-                "https://oxford3000api.mixko.ml/oxford3000.json"
+                "https://oxford3000words.mixko.ml/oxford3000.json"
             );
             setAllWords(fetchedData.data);
         } catch {
