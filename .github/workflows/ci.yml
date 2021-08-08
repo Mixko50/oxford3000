@@ -68,7 +68,7 @@ jobs:
 
             - name: Upload artifacts to server
               run: |
-                  lftp -e "set sftp:auto-confirm yes; open $REMOTE_SFTP_LOGIN; mirror -X .* -X .*/ --reverse --delete ./react-build-artifact /mnt; mput -e -O /mnt/backend ./backend-build-artifact/oxford3000-webpack.js; bye"
+                  lftp -e "set sftp:auto-confirm yes; open $REMOTE_SFTP_LOGIN; mirror -X .* -X .*/ --reverse --delete ./react-build-artifact /mnt/web; mput -e -O /mnt/backend ./backend-build-artifact/oxford3000-webpack.js; bye"
 
             - name: Restart Node runtime at server
               run: |
